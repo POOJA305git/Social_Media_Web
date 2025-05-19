@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome to Social Media</h2>
+    <p>See what's happening with your friends</p>
+</div>
+
+<!-- ✅ Show Shared Posts First -->
+{% if shared_posts %}
+    {% for shared in shared_posts %}
+        <div class="card post-card">
+            <div class="post-header">
+                <strong>{{ shared.shared_by.username }}</strong> shared a post with you
+            </div>
+            <div class="post-content">
+                <p>{{ shared.original_post.content }}</p>
+                {% if shared.original_post.image %}
+                    <img src="{{ shared.original_post.image.url }}" class="post-image">
+                {% endif %}
+            </div>
+
+            <!-- Post Actions for Shared Posts (like, comment, share) -->
+            <div class="post-actions">
+                <!-- Like Button for the original post -->
+                <form method="POST" action="{% url 'like_post' shared.original_post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="like-btn">
+                        👍 <span class="like-count">{{ shared.original_post.likes.count }}</span>
+                    </button>
+                </form>
+                
+                <!-- Comment Toggle Button for the original post -->
+                <button class="comment-toggle-btn" data-post-id="{{ shared.original_post.id }}">
+                    💬 <span class="comment-count">{{ shared.original_post.comments.count }}</span>
+                </button>
+                
+                <!-- Share Button for shared post -->
+                <button class="share-btn" onclick="openShareModal('{{ shared.original_post.id }}')">🔗 Share</button>
+            </div>
+
+            <!-- Comment Section for Shared Post -->
+            <div class="comment-section" id="comments-{{ shared.original_post.id }}" style="display: none;">
+                <!-- Comment Form -->
+                <form method="POST" action="{% url 'add_comment' shared.original_post.id %}" class="comment-form">
+                    {% csrf_token %}
+                    <input type="text" name="content" placeholder="Write a comment..." required>
+                    <button type="submit" class="comment-submit-btn">Post</button>
+                </form>
+
+                <!-- Comments List -->
+                <div class="comments-list">
+                    {% for comment in shared.original_post.comments.all %}
+                        <div class="comment">
+                            <img src="{{ comment.user.profile_pic.url }}" class="comment-pic">
+                            <div class="comment-content">
+                                <a href="{% url 'profile' comment.user.username %}"><strong>{{ comment.user.username }}</strong></a>
+                                <p>{{ comment.content }}</p>
+                                <small>{{ comment.created_at|timesince }} ago</small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- ✅ Then Regular Posts -->
+{% for post in posts %}
+    {% include 'core/_post.html' %}
+{% empty %}
+    <div class="card">
+        <p>No posts to show. Follow some people or create your own post!</p>
+    </div>
+{% endfor %}
+{% endblock %}

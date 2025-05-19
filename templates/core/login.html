@@ -1,0 +1,132 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+
+
+    /* Card-like box for login */
+    .login-card {
+        padding: 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: white; /* You can change this to transparent if needed */
+    }
+
+    .logo {
+        width: 120px;
+        margin-bottom: 20px;
+    }
+
+    /* Styling the input fields */
+    .input-container {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #dbdbdb;
+        border-radius: 3px;
+        font-size: 14px;
+        background-color: #fafafa;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        border-color: #0095f6;
+        outline: none;
+    }
+
+    /* Button styling */
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #0095f6;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .btn:hover {
+        background-color: #007bb5;
+    }
+
+    /* Facebook button styling */
+    .facebook-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #385185;
+        color: white;
+        border-radius: 3px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .facebook-btn:hover {
+        background-color: #2e3c60;
+    }
+
+    /* Divider between login methods */
+    .divider {
+        margin: 20px 0;
+        color: #8e8e8e;
+        font-size: 14px;
+    }
+
+    /* Sign-up prompt styling */
+    .signup-prompt {
+        font-size: 14px;
+        color: #8e8e8e;
+    }
+
+    .signup-link {
+        color: #0095f6;
+        text-decoration: none;
+    }
+
+    .signup-link:hover {
+        text-decoration: underline;
+    }
+    /* Centering container for login page */
+.page-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+
+</style>
+<div class="page-center">
+<div class="login-card">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.XgT9d552B6R9C60Ul2yqkAHaHa&pid=Api&P=0&h=180" alt="Instagram" class="logo">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-container">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+        </div>
+        <div class="input-container">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn">Log in</button>
+    </form>
+
+    <p class="signup-prompt">Don't have an account? <a href="{% url 'signup' %}" class="signup-link">Sign up</a></p>
+</div>
+</div>
+{% endblock %}
