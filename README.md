@@ -13,38 +13,45 @@ This is a full-featured Instagram-like web application built with **Django**. Us
 - 🔄 Share Posts
 - 👤 User Profile Update
 - 📸 Media Upload Support
-- 📬 Notifications (optional/future)
-- 🧾 REST API (if applicable)
+
+
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Backend**: Django 4.x
-- **Database**: SQLite (default) / PostgreSQL / MySQL
-- **Frontend**: HTML, CSS, JavaScript (or Bootstrap/Tailwind if used)
-- **Authentication**: Django Auth
+- **Database**: SQLite (default) 
+- **Frontend**: HTML, CSS, JavaScript 
 - **File Storage**: Django Media Storage
-- **Deployment**: Heroku / Railway / PythonAnywhere / Render
+
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1. Clone the Repository
+Follow these steps to run the project locally:
+
+### 🔧 1–6: Setup & Run
+
 ```bash
+# 1. Clone the Repository
 git clone https://github.com/yourusername/django-instagram-clone.git
 cd django-instagram-clone
-2. Create & Activate Virtual Environment
+
+# 2. Create & Activate Virtual Environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-3. Install Dependencies
+
+# 3. Install Dependencies
 pip install -r requirements.txt
-4. Apply Migrations & Create Superuser
+
+# 4. Apply Migrations
 python manage.py makemigrations
 python manage.py migrate
+
+# 5. Create Superuser
 python manage.py createsuperuser
-5.Run the Development Server
+
+# 6. Run the Development Server
 python manage.py runserver
-
-
